@@ -25,9 +25,10 @@ _StackBase:
 _StackSize:
   .quad FixedPcdGet32(PcdPrePiStackSize)
 
+
 _ModuleEntryPoint:  
-        mov     w0, 0
-        ldp     x29, x30, [sp], 16
+  mov x0, #0
+
   /* Know about the current CPU index */
   mrs x3, mpidr_el1
   mov x2, x3
@@ -71,9 +72,19 @@ _FillVectors:
   adds    x2, x2, #8
   cmp     x2, #0x800
   bne     _FillVectors
-        
+
   /* Get current EL in x0 */
- // mrs x0, CurrentEl
+  mrs x0, CurrentEl
+
+  /* Check if we are in EL1 */
+  cmp x0, #0x4
+  b.eq _SetupEl1VBar
+
+  cmp x0, #0x5
+  b.eq _SetupEl1VBar
+  
+_SetupEl1VBar:
+  msr vbar_el1, x0        
     
 _DonNotTrap_VFP_SIMD:
   mrs x0, CPACR_EL1
@@ -87,7 +98,7 @@ _SetupPrimaryCoreStack:
   
   add x4, x0, x1
   add sp, x4, #0
-  
+
 _EnableCache: 
   bl ArmInvalidateDataCache
   bl ASM_PFX(ArmEnableInstructionCache)
