@@ -63,7 +63,7 @@ static ARM_MEMORY_REGION_DESCRIPTOR_EX gDeviceMemoryDescriptorEx[] = {
 //--------------------- DDR --------------------- */
     {"TrustZone 0",       0x800000000, 0x000400000, AddDev, MMAP_IO, UNCACHEABLE, MmIO,  NS_DEVICE},
     {"UEFI FD",           0x800400000, 0x000200000, AddMem, SYS_MEM, SYS_MEM_CAP, BsCode, WRITE_BACK},
-    {"HLOS 1",            0x800600000, 0x000100000, AddMem, SYS_MEM, SYS_MEM_CAP, Conv,   WRITE_BACK},
+    {"HLOS 1",            0x800600000, 0x000600000, AddMem, SYS_MEM, SYS_MEM_CAP, Conv,   WRITE_BACK},
     {"UEFI Stack",        0x800C00000, 0x000040000, AddMem, MEM_RES, UNCACHEABLE, RtCode, NS_DEVICE},
     {"CPU Vectors",       0x800C40000, 0x000010000, AddMem, SYS_MEM, SYS_MEM_CAP, BsCode, WRITE_BACK},
     {"HLOS 2",            0x800C50000, 0x0000B0000, AddMem, SYS_MEM, SYS_MEM_CAP, Conv,   WRITE_BACK},
